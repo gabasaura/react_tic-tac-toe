@@ -92,8 +92,53 @@ body {
   left: 0;
   display: grid;
   place-items: center;
+  margin: 0 auto;
   background-color: rgba(0, 0, 0, 0.7);
+  align-items: start;
+  top: 154px;
 }
+
+form.start-players {
+  background: #07060B;
+  height: 300px;
+  width: 320px;
+  border: 2px solid #988FC5;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  gap: 20px;
+}
+
+form label{
+  font-size: 20px;
+  color: #988FC5;
+  padding-top: 5px;
+  
+}
+
+form input {
+  border: none;
+  border-radius: 25px;
+  height: 50px;
+  line-height: normal;
+  color: #fff;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  user-select: auto;
+  font-size: 16px;
+  padding: 6px;
+  padding-left: 12px;
+  text-align: center;
+}
+
+form input:focus {
+  border: 1px solid white;
+}
+
 
 .winner .text {
   background: #07060B;
@@ -130,10 +175,12 @@ body {
   padding-bottom: 5px;
 }
 
-.turns-selection{
+.turns-selection {
   display: inline-flex;
   gap: 10px;
   margin: 1em;
 }
-.turns-selection > .square {
-border-radius: 50px;}
+
+.turns-selection>.square {
+  border-radius: 50px;
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PlayerSelection from './components/ChoosePlayers'
 
 const turns = {
   x: '×',
@@ -36,6 +37,13 @@ function App() {
 
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(turns.x)
+  const [players, setPlayers] = useState(null);
+
+
+  // Players
+  const handlePlayerSelect = (player1, player2) => {
+    setPlayers({ player1, player2 })
+  }
 
   // null no hay winner, false es empate
   const [winner, setWinner] = useState(null)
@@ -52,13 +60,14 @@ function App() {
         return boardCheck[a] // win x u o
       }
     }
-      return null
+    return null
   }
 
   const resetGame = () => {
     setBoard(Array(9).fill(null))
     setTurn(turns.x)
     setWinner(null)
+    setPlayers(null)
   }
   const checkEndGame = (newBoard) => {
     return newBoard.every((square) => square !== null)
@@ -72,7 +81,7 @@ function App() {
     //cambiar turno
     const newTurn = turn === turns.x ? turns.o : turns.x
     setTurn(newTurn)
-    
+
     //revisar winner
     const newWinner = checkWinner(newBoard)
     if (newWinner) {
@@ -80,30 +89,41 @@ function App() {
     } else if (checkEndGame(newBoard)) {
       setWinner(false) //empate
     }
-      
-    }
-  
+
+  }
+
 
 
   return (
+
     <main className='board'>
       <h1>TIC TAC TOE</h1>
-      <button onClick={resetGame}>RESET</button>
-      <section className="game">
-        {
-          board.map((square, index) => {
-            return (
-              <Square
-                key={index}
-                index={index}
-                updateBoard={updateBoard}>
-                {square}
-              </Square>
-            )
-          })
-        }
 
-      </section>
+
+
+      {!players ? (
+        <PlayerSelection onPlayerSelect={handlePlayerSelect} />
+      ) : (
+
+        <>
+          <button onClick={resetGame}>RESET</button>
+          <section className="game">
+
+
+            {
+              board.map((square, index) => {
+                return (
+                  <Square
+                    key={index}
+                    index={index}
+                    updateBoard={updateBoard}>
+                    {square}
+                  </Square>
+                )
+              })
+            }
+
+          </section>
       <section className='turns-selection'>
         <Square isSelected={turn === turns.x}>
           {turns.x}
@@ -113,15 +133,17 @@ function App() {
         </Square>
       </section>
 
-        {
-          winner !== null && (
-            <section className='winner'>
-              <div className='text'>
+        </>
+      )}
+      {
+        winner !== null && (
+          <section className='winner'>
+            <div className='text'>
               <h2>
                 {
                   winner === false
-                  ? 'Empate'
-                  : 'Gano: '
+                    ? 'PERDEDORES HEHE!'
+                    : 'GANO: '
                 }
               </h2>
               <header className='win'>
@@ -131,11 +153,12 @@ function App() {
               <footer>
                 <button onClick={resetGame}>RESET</button>
               </footer>
-              </div>
-            </section>
-          ) 
-        }
-      
+            </div>
+          </section>
+        )
+      }
+
+
     </main>
   )
 }
